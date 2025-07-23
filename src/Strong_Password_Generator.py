@@ -10,12 +10,14 @@ import random
 
 class RandomPasswordGenerator(PasswordGenerator):
     def __init__ (self, include_numbers : bool = False , include_symbols : bool = False ,length = 8 ):
+        self.include_numbers = include_numbers
+        self.include_symbols = include_symbols
         self.password = string.ascii_letters
         self.length = length
     def generate(self):
-        if include_numbers :
+        if self.include_numbers :
             self.password += string.digits
-        if include_symbols :
+        if self.include_symbols :
             self.password += string.punctuation
         return "".join(random.choice(self.password) for _ in range(self.length))
 if __name__ == "__main__":
