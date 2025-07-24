@@ -1,6 +1,13 @@
+import sys
+import nltk
 import random
 from abc import ABC, abstractmethod
-from tkinter.ttk import Separator
+try:
+        nltk.data.find('corpora/words')
+except LookupError:
+        nltk.download('words', quiet=True)
+except ImportError:
+    sys.exit("NLTK is not installed. Please install it with: pip install nltk")
 
 
 class PasswordGenerator(ABC):
@@ -12,7 +19,7 @@ class PasswordGenerator(ABC):
 class MemorablePasswordGenerator(PasswordGenerator):
     def __init__(self, num_of_words : int = 8 , capitalize : bool = False, separator : str = "-", vocabulary : list = None):
         if vocabulary is None:
-            vocabulary = ["Air", "Animal", "Answer", "Apple", "Art", "Beautiful", "Big", "Black", "Blue", "Book", "Car", "Change", "City", "Cold", "Communication", "Complex", "Country", "Courage", "Darkness", "Day", "Death", "Destination", "Different", "Drink", "Dream", "Earth", "Eat", "Failure", "Family", "Fast", "Fear", "Fire", "Forest", "Freedom", "Friend", "Future", "Green", "Happy", "History", "Hope", "Hot", "House", "Human", "Idea", "Important", "Impossible", "Journey", "Justice", "Knowledge", "Language", "Life", "Light", "Love", "Memory", "Moment", "Money", "Moon", "Mountain", "Music", "Nature", "Night", "Noise", "Ocean", "Past", "Peace", "Play", "Possible", "Power", "Present", "Problem", "Question", "Reality", "Red", "River", "Run", "Sad", "School", "Science", "Silence", "Similar", "Simple", "Sleep", "Slow", "Small", "Solution", "Student", "Success", "Sun", "Teacher", "Technology", "Time", "Tree", "Ugly", "Walk", "War", "Water", "White", "Work", "World", "Yellow"]
+            vocabulary = nltk.corpus.words.words()
         self.separator = separator
         self.vocabulary = vocabulary
         self.capitalize = capitalize
